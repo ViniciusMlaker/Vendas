@@ -22,6 +22,14 @@ def carregarArquivo():
 def calcularTotal(pedido):
     return pedido['quantidade'] * pedido['valor unitário']
 
+def totalGeral(pedidos):
+    totalGeral = 0
+    
+    for pedido in pedidos:
+        totalGeral += calcularTotal(pedido)
+
+    print(f"Total geral = R$ {totalGeral:.2f}")
+
 def receberCodigos(pedidos):
     codigo = None
     limite = range(10000, 21001)
@@ -36,14 +44,13 @@ def receberCodigos(pedidos):
                 if pedido['codigo'] == codigo:
                     total += calcularTotal(pedido)
 
-            print(f"Total vendido do produto {codigo} = R$ {total:.2f}")
+            print(f"Total vendido do produto {codigo} = R$ {total:.2f}\n")
 
-        elif codigo != 0:
-            print(f"{codigo} Código inválido (deve ser entre 10000 e 21000)")
+        elif codigo == 0:
+            print("Fim do programa")
+        else:
+            print(f"{codigo} Código inválido (deve ser entre 10000 e 21000)\n")
             
-
 pedidos = carregarArquivo()
-
-print(pedidos)
-
+totalGeral(pedidos)
 receberCodigos(pedidos)
